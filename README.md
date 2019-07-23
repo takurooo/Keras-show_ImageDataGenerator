@@ -2,8 +2,7 @@
 Show image file converted by keras.preprocessing.image.ImageDataGenerator
 
 # Usage
-1 Select your image file path to IMG_FILE.  
-2 Set parameter ImageDataGenerator.  
+1 Set config parameters in "args.json".  
 3 `python show_generator`  
 4 Script show 16 images.
 
