@@ -98,15 +98,17 @@ def generate_transformed_images(datagen, img_path, num_imgs):
     # (height, width, 3) -> (1, height, width, 3) for datagen.flow
     img_array_reshaped = img_array.reshape((1,) + img_array.shape)
 
-    imgs = []
+    transformed_imgs = []
     for transformed_img in datagen.flow(img_array_reshaped, batch_size=1):
         # convert ndarray format to PIL format to display the image.
-        imgs.append(image_utils.array_to_img(transformed_img[0], scale=True))
+        transformed_imgs.append(
+            image_utils.array_to_img(transformed_img[0], scale=True)
+        )
         # since datagen.flow loops infinitely, you need to break out of the loop
         # once you have obtained the required number of images.
-        if (len(imgs) % num_imgs) == 0:
+        if (len(transformed_imgs) % num_imgs) == 0:
             break
-    return imgs
+    return transformed_imgs
 
 
 def display_images_in_grid(imgs, row, col):
@@ -150,8 +152,8 @@ def main(config_path, img_path, row=4, col=4):
 
     config = load_image_data_generator_config(config_path)
     datagen = create_image_data_generator(config)
-    imgs = generate_transformed_images(datagen, img_path, row * col)
-    display_images_in_grid(imgs, row, col)
+    transformed_imgs = generate_transformed_images(datagen, img_path, row * col)
+    display_images_in_grid(transformed_imgs, row, col)
 
 
 if __name__ == "__main__":
