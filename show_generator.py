@@ -85,7 +85,13 @@ def generate_transformed_images(datagen, img_path, num_imgs):
 
     Returns:
         list: A list of generated PIL images.
+
+    Raises:
+        ValueError: If num_imgs is not a positive integer.
     """
+    if num_imgs <= 0:
+        raise ValueError("num_imgs must be a positive integer.")
+
     # open the image file as PIL format
     img = image_utils.load_img(img_path)
     # convert PIL format to ndarray format for datagen.flow
