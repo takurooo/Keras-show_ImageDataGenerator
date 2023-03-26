@@ -125,21 +125,23 @@ def show_imgs(imgs, row, col):
     plt.show()
 
 
-def main(args):
+def main(config_path, img_path):
     """
     Main function.
 
     Args:
-        args (argparse.Namespace): Parsed command line arguments.
+        config_path (str): The path to the configuration file.
+        img_path (str): The path to the image file.
     """
-    if not os.path.exists(args.img_path):
-        raise ValueError(f"Invalid img_path: {args.img_path}")
+    if not os.path.exists(img_path):
+        raise ValueError(f"Invalid img_path: {img_path}")
 
-    config = load_config(args.config_path)
+    config = load_config(config_path)
     datagen = create_datagen(config)
-    imgs = generate_images(datagen, args.img_path, IMAGE_NUM)
+    imgs = generate_images(datagen, img_path, IMAGE_NUM)
     show_imgs(imgs, ROW, COL)
 
 
 if __name__ == "__main__":
-    main(get_args())
+    args = get_args()
+    main(args.config_path, args.img_path)
