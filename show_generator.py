@@ -59,7 +59,7 @@ def create_image_data_generator_by_config(config_path):
     Create an ImageDataGenerator instance based on the configuration file.
 
     Args:
-        config (str): Path to the configuration JSON file.
+        config_path (str): Path to the configuration JSON file.
 
     Returns:
         ImageDataGenerator: An instance of the ImageDataGenerator class.
