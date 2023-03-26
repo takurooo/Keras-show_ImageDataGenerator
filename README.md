@@ -10,6 +10,8 @@ This script shows image files that converted using `keras.preprocessing.image.Im
 Note: If you want to change the number of images shown, you can modify the ROW and COL parameters in the show_generator.py file. By default, the script shows 16 images.
 
 ## config.json
+
+This configuration is used to set the arguments for `keras.preprocessing.image.ImageDataGenerator`.
 ```json
 {
     "featurewise_center": "False",
@@ -25,6 +27,8 @@ Note: If you want to change the number of images shown, you can modify the ROW a
     "rescale": 0
 }
 ```
+
+see also : https://keras.io/ja/preprocessing/image/
 
 ## raw_image
 ![raw_image](https://github.com/takurooo/Keras-show_ImageDataGenerator/blob/images/dog.jpg?raw=true)
