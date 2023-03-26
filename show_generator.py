@@ -1,3 +1,10 @@
+"""
+This script is designed to apply various image augmentations to a given image
+and display the transformed images in a grid. The image augmentations are
+configured through a JSON configuration file. The script uses Keras'
+ImageDataGenerator for applying the transformations and matplotlib for
+displaying the images.
+"""
 import argparse
 import json
 import os
