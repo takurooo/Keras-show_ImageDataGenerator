@@ -18,7 +18,7 @@ COL = 4
 IMAGE_NUM = ROW * COL
 
 
-def get_args():
+def parse_args():
     """
     Parse command line arguments.
 
@@ -42,11 +42,11 @@ def load_image_transform_config(config_path):
         dict: A dictionary containing configuration settings.
     """
     with open(config_path, "r", encoding="utf-8") as f:
-        j = json.load(f)
-    return j
+        config_json = json.load(f)
+    return config_json
 
 
-def create_datagen(config):
+def create_image_data_generator(config):
     """
     Create an ImageDataGenerator instance based on the given configuration.
 
@@ -71,14 +71,14 @@ def create_datagen(config):
     )
 
 
-def generate_images(datagen, img_path, num_images):
+def generate_transformed_images(datagen, img_path, num_imgs):
     """
     Generate a specified number of images using the given ImageDataGenerator and image path.
 
     Args:
         datagen (ImageDataGenerator): An instance of the ImageDataGenerator class.
         img_path (str): Path to the input image file.
-        num_images (int): Number of images to generate.
+        num_imgs (int): Number of images to generate.
 
     Returns:
         list: A list of generated PIL images.
@@ -88,20 +88,20 @@ def generate_images(datagen, img_path, num_images):
     # convert PIL format to ndarray format for datagen.flow
     img_array = image_utils.img_to_array(img)
     # (height, width, 3) -> (1, height, width, 3) for datagen.flow
-    x = img_array.reshape((1,) + img_array.shape)
+    img_array_reshaped = img_array.reshape((1,) + img_array.shape)
 
     imgs = []
-    for d in datagen.flow(x, batch_size=1):
+    for transformed_img in datagen.flow(img_array_reshaped, batch_size=1):
         # convert ndarray format to PIL format to display the image.
-        imgs.append(image_utils.array_to_img(d[0], scale=True))
+        imgs.append(image_utils.array_to_img(transformed_img[0], scale=True))
         # since datagen.flow loops infinitely, you need to break out of the loop
         # once you have obtained the required number of images.
-        if (len(imgs) % num_images) == 0:
+        if (len(imgs) % num_imgs) == 0:
             break
     return imgs
 
 
-def show_imgs(imgs, row, col):
+def display_images_in_grid(imgs, row, col):
     """
     Display images in a grid format using matplotlib.
 
@@ -131,17 +131,17 @@ def main(config_path, img_path):
 
     Args:
         config_path (str): The path to the configuration file.
-        img_path (str): The path to the image file.
+        image_path (str): The path to the image file.
     """
     if not os.path.exists(img_path):
-        raise ValueError(f"Invalid img_path: {img_path} doesn't exist")
+        raise ValueError(f"Invalid image_path: {img_path} doesn't exist")
 
     config = load_image_transform_config(config_path)
-    datagen = create_datagen(config)
-    imgs = generate_images(datagen, img_path, IMAGE_NUM)
-    show_imgs(imgs, ROW, COL)
+    datagen = create_image_data_generator(config)
+    imgs = generate_transformed_images(datagen, img_path, IMAGE_NUM)
+    display_images_in_grid(imgs, ROW, COL)
 
 
 if __name__ == "__main__":
-    args = get_args()
+    args = parse_args()
     main(args.config_path, args.img_path)
