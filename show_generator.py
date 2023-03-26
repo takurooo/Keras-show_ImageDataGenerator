@@ -13,11 +13,6 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator, image_utils
 
 
-ROW = 4
-COL = 4
-IMAGE_NUM = ROW * COL
-
-
 def parse_args():
     """
     Parse command line arguments.
@@ -125,21 +120,23 @@ def display_images_in_grid(imgs, row, col):
     plt.show()
 
 
-def main(config_path, img_path):
+def main(config_path, img_path, row=4, col=4):
     """
     Main function.
 
     Args:
         config_path (str): The path to the configuration file.
         image_path (str): The path to the image file.
+        row (int): Number of rows in the grid. Defaults to 4.
+        col (int): Number of columns in the grid. Defaults to 4.
     """
     if not os.path.exists(img_path):
         raise ValueError(f"Invalid image_path: {img_path} doesn't exist")
 
     config = load_image_transform_config(config_path)
     datagen = create_image_data_generator(config)
-    imgs = generate_transformed_images(datagen, img_path, IMAGE_NUM)
-    display_images_in_grid(imgs, ROW, COL)
+    imgs = generate_transformed_images(datagen, img_path, row * col)
+    display_images_in_grid(imgs, row, col)
 
 
 if __name__ == "__main__":
