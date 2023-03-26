@@ -71,7 +71,7 @@ def create_image_data_generator_by_config(config_path):
     try:
         return ImageDataGenerator(**config)
     except TypeError as e:
-        raise ValueError(f"Invalid config file format in {config_path}: {e}") from e
+        raise ValueError(f"Invalid config key or value in {config_path}: {e}") from e
 
 
 def generate_transformed_images(datagen, img_path, num_imgs):
