@@ -54,29 +54,24 @@ def load_image_data_generator_config(config_path):
     return config_json
 
 
-def create_image_data_generator(config):
+def create_image_data_generator_by_config(config_path):
     """
-    Create an ImageDataGenerator instance based on the given configuration.
+    Create an ImageDataGenerator instance based on the configuration file.
 
     Args:
-        config (dict): A dictionary containing the configuration settings for ImageDataGenerator.
+        config (str): Path to the configuration JSON file.
 
     Returns:
         ImageDataGenerator: An instance of the ImageDataGenerator class.
+
+    Raises:
+        ValueError: If the configuration file contains invalid arguments for ImageDataGenerator.
     """
-    return ImageDataGenerator(
-        featurewise_center=config["featurewise_center"],
-        samplewise_center=config["samplewise_center"],
-        fill_mode=config["fill_mode"],
-        rotation_range=config["rotation_range"],
-        width_shift_range=config["width_shift_range"],
-        height_shift_range=config["height_shift_range"],
-        shear_range=config["shear_range"],
-        zoom_range=config["zoom_range"],
-        horizontal_flip=config["horizontal_flip"],
-        vertical_flip=config["vertical_flip"],
-        rescale=config["rescale"],
-    )
+    config = load_image_data_generator_config(config_path)
+    try:
+        return ImageDataGenerator(**config)
+    except TypeError as e:
+        raise ValueError(f"Invalid config file format in {config_path}: {e}") from e
 
 
 def generate_transformed_images(datagen, img_path, num_imgs):
@@ -150,8 +145,7 @@ def main(config_path, img_path, row=4, col=4):
     if not os.path.exists(config_path):
         raise ValueError(f"Invalid config_path: {config_path} doesn't exist")
 
-    config = load_image_data_generator_config(config_path)
-    datagen = create_image_data_generator(config)
+    datagen = create_image_data_generator_by_config(config_path)
     transformed_imgs = generate_transformed_images(datagen, img_path, row * col)
     display_images_in_grid(transformed_imgs, row, col)
 
