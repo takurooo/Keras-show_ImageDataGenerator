@@ -41,11 +41,16 @@ def load_image_transform_config(config_path):
     Args:
         config_path (str): Path to the configuration JSON file.
 
-    Returns:
-        dict: A dictionary containing configuration settings.
+    Raises:
+        ValueError: If there is an error decoding the JSON format or the file is not found.
     """
-    with open(config_path, "r", encoding="utf-8") as f:
-        config_json = json.load(f)
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            config_json = json.load(f)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON format in file {config_path}") from e
+    except FileNotFoundError as e:
+        raise ValueError(f"File not found: {config_path}") from e
     return config_json
 
 
@@ -140,6 +145,8 @@ def main(config_path, img_path, row=4, col=4):
     """
     if not os.path.exists(img_path):
         raise ValueError(f"Invalid image_path: {img_path} doesn't exist")
+    if not os.path.exists(config_path):
+        raise ValueError(f"Invalid config_path: {config_path} doesn't exist")
 
     config = load_image_transform_config(config_path)
     datagen = create_image_data_generator(config)
