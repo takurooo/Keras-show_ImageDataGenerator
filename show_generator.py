@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -11,8 +12,14 @@ COL = 4
 IMAGE_NUM = ROW * COL
 
 
-def load_config():
-    with open(CONFIG_PATH, "r") as f:
+def get_args():
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument("config_path", type=str, help="your config file path")
+    return parser.parse_args()
+
+
+def load_config(config_path):
+    with open(config_path, "r") as f:
         j = json.load(f)
     return j
 
@@ -38,7 +45,8 @@ def show_imgs(imgs, row, col):
     plt.show()
 
 
-def main(config):
+def main(args):
+    config = load_config(args.config_path)
     img_path = config["img_path"]
     if not os.path.exists(img_path):
         raise ValueError("Invalid img_path: ", img_path)
@@ -77,4 +85,4 @@ def main(config):
 
 
 if __name__ == "__main__":
-    main(load_config())
+    main(get_args())

@@ -2,8 +2,8 @@
 Show image file converted by keras.preprocessing.image.ImageDataGenerator
 
 # Usage
-1 Set config parameters in `config.json`.  
-3 `python show_generator`  
+1 Set config parameters in `config.json`.
+3 `python show_generator config.json`
 4 Script show 16 images.
 
 
