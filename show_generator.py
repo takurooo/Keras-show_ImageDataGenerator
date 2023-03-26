@@ -32,9 +32,7 @@ def show_imgs(imgs, row, col):
            col: Int, column for plt.subplot
     """
     if len(imgs) != (row * col):
-        raise ValueError(
-            "Invalid imgs len:{} col:{} row:{}".format(len(imgs), row, col)
-        )
+        raise ValueError(f"Invalid imgs len:{len(imgs)} col:{row} row:{col}")
 
     for i, img in enumerate(imgs):
         plot_num = i + 1
@@ -49,7 +47,7 @@ def main(args):
     config = load_config(args.config_path)
     img_path = config["img_path"]
     if not os.path.exists(img_path):
-        raise ValueError("Invalid img_path: ", img_path)
+        raise ValueError(f"Invalid img_path: {img_path}")
 
     # open the image file as PIL format
     img = image_utils.load_img(img_path)
