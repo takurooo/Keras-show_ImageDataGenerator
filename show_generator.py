@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 
 import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator, image_utils
