@@ -14,14 +14,14 @@ Note: If you want to change the number of images shown, you can modify the row a
 This configuration is used to set the arguments for `keras.preprocessing.image.ImageDataGenerator`.
 ```json
 {
-    "featurewise_center": "False",
-    "samplewise_center": "False",
+    "featurewise_center": false,
+    "samplewise_center": false,
     "fill_mode": "nearest",
     "rotation_range": 0,
-    "width_shift_range": 0,
-    "height_shift_range": 0,
-    "shear_range": 0,
-    "zoom_range": 0,
+    "width_shift_range": 0.0,
+    "height_shift_range": 0.0,
+    "shear_range": 0.0,
+    "zoom_range": 0.0,
     "horizontal_flip": false,
     "vertical_flip": false,
     "rescale": 0
