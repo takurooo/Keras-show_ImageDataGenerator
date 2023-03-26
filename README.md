@@ -2,10 +2,10 @@
 Show image file converted by keras.preprocessing.image.ImageDataGenerator
 
 # Usage
-1 Set config parameters in `config.json`.
-3 `python show_generator config.json`
+1 Creat environment using `pipenv sync`.  
+2 Set config parameters in `config.json`.  
+3 `python show_generator config.json`.  
 4 Script show 16 images.
-
 
 ## config.json
 ```json
