@@ -21,8 +21,16 @@ def parse_args():
         argparse.Namespace: The parsed command line arguments.
     """
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument("config_path", type=str, help="your config file path")
-    parser.add_argument("img_path", type=str, help="your image file path")
+    parser.add_argument(
+        "config_path",
+        type=str,
+        help="Path to the JSON configuration file containing the image transformation settings.",
+    )
+    parser.add_argument(
+        "img_path",
+        type=str,
+        help="Path to the input image file to apply transformations.",
+    )
     return parser.parse_args()
 
 
