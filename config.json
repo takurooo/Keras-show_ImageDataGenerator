@@ -1,5 +1,5 @@
 {
-    "img_path": "sample.jpg",
+    "img_path": "imgs/sample.jpg",
     "featurewise_center": "False",
     "samplewise_center": "False",
     "fill_mode": "nearest",
@@ -8,7 +8,7 @@
     "height_shift_range": 0,
     "shear_range": 0,
     "zoom_range": 0,
-    "horizontal_flip": "False",
-    "vertical_flip": "False",
+    "horizontal_flip": false,
+    "vertical_flip": false,
     "rescale": 0
 }

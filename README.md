@@ -2,15 +2,15 @@
 Show image file converted by keras.preprocessing.image.ImageDataGenerator
 
 # Usage
-1 Set config parameters in `args.json`.  
+1 Set config parameters in `config.json`.  
 3 `python show_generator`  
 4 Script show 16 images.
 
 
-## args.json
+## config.json
 ```json
 {
-    "img_path": "sample.jpg",
+    "img_path": "imgs/sample.jpg",
     "featurewise_center": "False",
     "samplewise_center": "False",
     "fill_mode": "nearest",
@@ -19,8 +19,8 @@ Show image file converted by keras.preprocessing.image.ImageDataGenerator
     "height_shift_range": 0,
     "shear_range": 0,
     "zoom_range": 0,
-    "horizontal_flip": "False",
-    "vertical_flip": "False",
+    "horizontal_flip": false,
+    "vertical_flip": false,
     "rescale": 0
 }
 ```

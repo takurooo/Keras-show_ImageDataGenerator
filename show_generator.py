@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator, image_utils
 
 
-JSON_PATH = os.path.join(os.getcwd(), "args.json")
+CONFIG_PATH = os.path.join(os.getcwd(), "config.json")
 
 
-def get_args():
-    with open(JSON_PATH, "r") as f:
+def load_config():
+    with open(CONFIG_PATH, "r") as f:
         j = json.load(f)
     return j
 
@@ -35,22 +35,11 @@ def show_imgs(imgs, row, col):
     plt.show()
 
 
-def main(args):
-    img_path = args["img_path"]
-    featurewise_center = args["featurewise_center"]
-    samplewise_center = args["samplewise_center"]
-    fill_mode = args["fill_mode"]
-    rotation_range = args["rotation_range"]
-    width_shift_range = args["width_shift_range"]
-    height_shift_range = args["height_shift_range"]
-    shear_range = args["shear_range"]
-    zoom_range = args["zoom_range"]
-    horizontal_flip = args["horizontal_flip"] == "True"
-    vertical_flip = args["vertical_flip"] == "True"
-    rescale = args["rescale"]
-
+def main(config):
+    img_path = config["img_path"]
     if not os.path.exists(img_path):
         raise ValueError("Invalid img_path: ", img_path)
+
     # open the image file as PIL format
     img = image_utils.load_img(img_path)
     # convert PIL format to ndarray format for datagen.flow
@@ -59,17 +48,17 @@ def main(args):
     x = x.reshape((1,) + x.shape)
 
     datagen = ImageDataGenerator(
-        featurewise_center=featurewise_center,
-        samplewise_center=samplewise_center,
-        fill_mode=fill_mode,
-        rotation_range=rotation_range,
-        width_shift_range=width_shift_range,
-        height_shift_range=height_shift_range,
-        shear_range=shear_range,
-        zoom_range=zoom_range,
-        horizontal_flip=horizontal_flip,
-        vertical_flip=vertical_flip,
-        rescale=rescale,
+        featurewise_center=config["featurewise_center"],
+        samplewise_center=config["samplewise_center"],
+        fill_mode=config["fill_mode"],
+        rotation_range=config["rotation_range"],
+        width_shift_range=config["width_shift_range"],
+        height_shift_range=config["height_shift_range"],
+        shear_range=config["shear_range"],
+        zoom_range=config["zoom_range"],
+        horizontal_flip=config["horizontal_flip"],
+        vertical_flip=config["vertical_flip"],
+        rescale=config["rescale"],
     )
 
     max_img_num = 16
@@ -86,4 +75,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(get_args())
+    main(load_config())
