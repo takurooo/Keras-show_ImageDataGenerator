@@ -1,11 +1,13 @@
 # Keras-show_ImageDataGenerator
-Show image file converted by keras.preprocessing.image.ImageDataGenerator
+This script shows image files that converted using `keras.preprocessing.image.ImageDataGenerator`
 
 # Usage
-1 Creat environment using `pipenv sync`.  
-2 Set config parameters in `config.json`.  
-3 `python show_generator config.json`.  
-4 Script show 16 images.
+1 Creat the environment using `pipenv sync`.  
+2 Set the configuration parameters in `config.json`.  
+3 Run the command `python show_generator config.json`.  
+4 The script will show 16 images.
+
+Note: If you want to change the number of images shown, you can modify the ROW and COL parameters in the show_generator.py file. By default, the script shows 16 images.
 
 ## config.json
 ```json
