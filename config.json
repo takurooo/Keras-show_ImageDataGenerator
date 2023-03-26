@@ -1,12 +1,12 @@
 {
-    "featurewise_center": "False",
-    "samplewise_center": "False",
+    "featurewise_center": false,
+    "samplewise_center": false,
     "fill_mode": "nearest",
     "rotation_range": 0,
-    "width_shift_range": 0,
-    "height_shift_range": 0,
-    "shear_range": 0,
-    "zoom_range": 0,
+    "width_shift_range": 0.0,
+    "height_shift_range": 0.0,
+    "shear_range": 0.0,
+    "zoom_range": 0.0,
     "horizontal_flip": false,
     "vertical_flip": false,
     "rescale": 0
