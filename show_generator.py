@@ -14,6 +14,7 @@ IMAGE_NUM = ROW * COL
 def get_args():
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("config_path", type=str, help="your config file path")
+    parser.add_argument("img_path", type=str, help="your image file path")
     return parser.parse_args()
 
 
@@ -44,12 +45,11 @@ def show_imgs(imgs, row, col):
 
 def main(args):
     config = load_config(args.config_path)
-    img_path = config["img_path"]
-    if not os.path.exists(img_path):
-        raise ValueError(f"Invalid img_path: {img_path}")
+    if not os.path.exists(args.img_path):
+        raise ValueError(f"Invalid img_path: {args.img_path}")
 
     # open the image file as PIL format
-    img = image_utils.load_img(img_path)
+    img = image_utils.load_img(args.img_path)
     # convert PIL format to ndarray format for datagen.flow
     x = image_utils.img_to_array(img)
     # (height, width, 3) -> (1, height, width, 3) for datagen.flow

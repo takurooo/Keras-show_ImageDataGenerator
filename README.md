@@ -4,7 +4,7 @@ This script shows image files that converted using `keras.preprocessing.image.Im
 # Usage
 1 Creat the environment using `pipenv sync`.  
 2 Set the configuration parameters in `config.json`.  
-3 Run the command `python show_generator config.json`.  
+3 Run the command `python show_generator config.json imgs/sample.jpg `.  
 4 The script will show 16 images.
 
 Note: If you want to change the number of images shown, you can modify the ROW and COL parameters in the show_generator.py file. By default, the script shows 16 images.
@@ -12,7 +12,6 @@ Note: If you want to change the number of images shown, you can modify the ROW a
 ## config.json
 ```json
 {
-    "img_path": "imgs/sample.jpg",
     "featurewise_center": "False",
     "samplewise_center": "False",
     "fill_mode": "nearest",

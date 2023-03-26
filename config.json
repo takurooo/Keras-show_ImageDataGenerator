@@ -1,5 +1,4 @@
 {
-    "img_path": "imgs/sample.jpg",
     "featurewise_center": "False",
     "samplewise_center": "False",
     "fill_mode": "nearest",
