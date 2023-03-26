@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+keras = "*"
+tensorflow = "*"
+matplotlib = "*"
+
+[dev-packages]
+black = "*"
+isort = "*"
+pre-commit = "*"
+
+[requires]
+python_version = "3.11"
+
+[scripts]
+format = "bash -xc 'black . && isort .'"
