@@ -134,7 +134,7 @@ def main(config_path, img_path):
         img_path (str): The path to the image file.
     """
     if not os.path.exists(img_path):
-        raise ValueError(f"Invalid img_path: {img_path}")
+        raise ValueError(f"Invalid img_path: {img_path} doesn't exist")
 
     config = load_image_transform_config(config_path)
     datagen = create_datagen(config)
