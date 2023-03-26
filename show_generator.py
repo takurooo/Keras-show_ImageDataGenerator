@@ -31,7 +31,7 @@ def get_args():
     return parser.parse_args()
 
 
-def load_config(config_path):
+def load_image_transform_config(config_path):
     """
     Load configuration from a JSON file.
 
@@ -136,7 +136,7 @@ def main(config_path, img_path):
     if not os.path.exists(img_path):
         raise ValueError(f"Invalid img_path: {img_path}")
 
-    config = load_config(config_path)
+    config = load_image_transform_config(config_path)
     datagen = create_datagen(config)
     imgs = generate_images(datagen, img_path, IMAGE_NUM)
     show_imgs(imgs, ROW, COL)
