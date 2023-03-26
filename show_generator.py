@@ -6,6 +6,9 @@ from keras.preprocessing.image import ImageDataGenerator, image_utils
 
 
 CONFIG_PATH = os.path.join(os.getcwd(), "config.json")
+ROW = 4
+COL = 4
+IMAGE_NUM = ROW * COL
 
 
 def load_config():
@@ -61,17 +64,16 @@ def main(config):
         rescale=config["rescale"],
     )
 
-    max_img_num = 16
     imgs = []
     for d in datagen.flow(x, batch_size=1):
         # convert ndarray format to PIL format to display the image.
         imgs.append(image_utils.array_to_img(d[0], scale=True))
         # since datagen.flow loops infinitely, you need to break out of the loop
         # once you have obtained the required number of images.
-        if (len(imgs) % max_img_num) == 0:
+        if (len(imgs) % IMAGE_NUM) == 0:
             break
 
-    show_imgs(imgs, row=4, col=4)
+    show_imgs(imgs, ROW, COL)
 
 
 if __name__ == "__main__":
