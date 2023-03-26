@@ -12,6 +12,12 @@ IMAGE_NUM = ROW * COL
 
 
 def get_args():
+    """
+    Parse command line arguments.
+
+    Returns:
+        argparse.Namespace: The parsed command line arguments.
+    """
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("config_path", type=str, help="your config file path")
     parser.add_argument("img_path", type=str, help="your image file path")
@@ -19,12 +25,30 @@ def get_args():
 
 
 def load_config(config_path):
+    """
+    Load configuration from a JSON file.
+
+    Args:
+        config_path (str): Path to the configuration JSON file.
+
+    Returns:
+        dict: A dictionary containing configuration settings.
+    """
     with open(config_path, "r", encoding="utf-8") as f:
         j = json.load(f)
     return j
 
 
 def create_datagen(config):
+    """
+    Create an ImageDataGenerator instance based on the given configuration.
+
+    Args:
+        config (dict): A dictionary containing the configuration settings for ImageDataGenerator.
+
+    Returns:
+        ImageDataGenerator: An instance of the ImageDataGenerator class.
+    """
     return ImageDataGenerator(
         featurewise_center=config["featurewise_center"],
         samplewise_center=config["samplewise_center"],
@@ -41,6 +65,17 @@ def create_datagen(config):
 
 
 def generate_images(datagen, img_path, num_images):
+    """
+    Generate a specified number of images using the given ImageDataGenerator and image path.
+
+    Args:
+        datagen (ImageDataGenerator): An instance of the ImageDataGenerator class.
+        img_path (str): Path to the input image file.
+        num_images (int): Number of images to generate.
+
+    Returns:
+        list: A list of generated PIL images.
+    """
     # open the image file as PIL format
     img = image_utils.load_img(img_path)
     # convert PIL format to ndarray format for datagen.flow
@@ -60,11 +95,16 @@ def generate_images(datagen, img_path, num_images):
 
 
 def show_imgs(imgs, row, col):
-    """Show PIL format images as row*col
-    # Arguments
-           imgs: 1-D array, include PILimages
-           row: Int, row for plt.subplot
-           col: Int, column for plt.subplot
+    """
+    Display images in a grid format using matplotlib.
+
+    Args:
+        imgs (list): A list of PIL images to display.
+        row (int): Number of rows in the grid.
+        col (int): Number of columns in the grid.
+
+    Raises:
+        ValueError: If the number of images does not match the grid size (row * col).
     """
     if len(imgs) != (row * col):
         raise ValueError(f"Invalid imgs len:{len(imgs)} col:{row} row:{col}")
@@ -79,6 +119,12 @@ def show_imgs(imgs, row, col):
 
 
 def main(args):
+    """
+    Main function.
+
+    Args:
+        args (argparse.Namespace): Parsed command line arguments.
+    """
     if not os.path.exists(args.img_path):
         raise ValueError(f"Invalid img_path: {args.img_path}")
 
