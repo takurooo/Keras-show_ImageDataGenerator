@@ -34,7 +34,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def load_image_transform_config(config_path):
+def load_image_data_generator_config(config_path):
     """
     Load configuration from a JSON file.
 
@@ -148,7 +148,7 @@ def main(config_path, img_path, row=4, col=4):
     if not os.path.exists(config_path):
         raise ValueError(f"Invalid config_path: {config_path} doesn't exist")
 
-    config = load_image_transform_config(config_path)
+    config = load_image_data_generator_config(config_path)
     datagen = create_image_data_generator(config)
     imgs = generate_transformed_images(datagen, img_path, row * col)
     display_images_in_grid(imgs, row, col)
