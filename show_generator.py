@@ -87,8 +87,10 @@ def generate_transformed_images(datagen, img_path, num_imgs):
         list: A list of generated PIL images.
 
     Raises:
-        ValueError: If num_imgs is not a positive integer.
+        ValueError: If the img_path doesn't exist or num_imgs is not a positive integer.
     """
+    if not os.path.exists(img_path):
+        raise ValueError(f"Invalid image_path: {img_path} doesn't exist")
     if num_imgs <= 0:
         raise ValueError("num_imgs must be a positive integer.")
 
@@ -146,11 +148,6 @@ def main(config_path, img_path, row=4, col=4):
         row (int): Number of rows in the grid. Defaults to 4.
         col (int): Number of columns in the grid. Defaults to 4.
     """
-    if not os.path.exists(img_path):
-        raise ValueError(f"Invalid image_path: {img_path} doesn't exist")
-    if not os.path.exists(config_path):
-        raise ValueError(f"Invalid config_path: {config_path} doesn't exist")
-
     datagen = create_image_data_generator_by_config(config_path)
     transformed_imgs = generate_transformed_images(datagen, img_path, row * col)
     display_images_in_grid(transformed_imgs, row, col)
