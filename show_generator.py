@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.image import ImageDataGenerator, image_utils
 
 
-CONFIG_PATH = os.path.join(os.getcwd(), "config.json")
 ROW = 4
 COL = 4
 IMAGE_NUM = ROW * COL
