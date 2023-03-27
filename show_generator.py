@@ -34,44 +34,43 @@ def parse_args():
     return parser.parse_args()
 
 
-def load_image_data_generator_config(config_path):
+def load_json(file_path):
     """
-    Load configuration from a JSON file.
+    Load data from a JSON file.
 
     Args:
-        config_path (str): Path to the configuration JSON file.
+        file_path (str): Path to the JSON file.
 
     Raises:
         ValueError: If there is an error decoding the JSON format or the file is not found.
     """
     try:
-        with open(config_path, "r", encoding="utf-8") as f:
-            config_json = json.load(f)
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
     except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON format in file {config_path}") from e
+        raise ValueError(f"Invalid JSON format in file {file_path}") from e
     except FileNotFoundError as e:
-        raise ValueError(f"File not found: {config_path}") from e
-    return config_json
+        raise ValueError(f"File not found: {file_path}") from e
+    return data
 
 
-def create_image_data_generator_by_config(config_path):
+def create_image_data_generator(config):
     """
-    Create an ImageDataGenerator instance based on the configuration file.
+    Creates an ImageDataGenerator instance based on the provided configuration data.
 
     Args:
-        config_path (str): Path to the configuration JSON file.
+        config (dict): A dictionary containing configuration data.
 
     Returns:
         ImageDataGenerator: An instance of the ImageDataGenerator class.
 
     Raises:
-        ValueError: If the configuration file contains invalid arguments for ImageDataGenerator.
+        ValueError: If there is an invalid config key or value.
     """
-    config = load_image_data_generator_config(config_path)
     try:
         return ImageDataGenerator(**config)
     except TypeError as e:
-        raise ValueError(f"Invalid config key or value in {config_path}: {e}") from e
+        raise ValueError(f"Invalid config key or value in {config}: {e}") from e
 
 
 def generate_transformed_images(datagen, img_path, num_imgs):
@@ -148,7 +147,8 @@ def main(config_path, img_path, row=4, col=4):
         row (int): Number of rows in the grid. Defaults to 4.
         col (int): Number of columns in the grid. Defaults to 4.
     """
-    datagen = create_image_data_generator_by_config(config_path)
+    config = load_json(config_path)
+    datagen = create_image_data_generator(config)
     transformed_imgs = generate_transformed_images(datagen, img_path, row * col)
     display_images_in_grid(transformed_imgs, row, col)
 
