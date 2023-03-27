@@ -13,10 +13,13 @@ black = "*"
 isort = "*"
 pre-commit = "*"
 pylint = "*"
+pytest = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.11"
 
 [scripts]
+test = "python -m pytest tests/ -v"
 format = "bash -xc 'black . && isort .'"
-lint = "pylint show_generator.py"
+lint = "pylint ./src"
