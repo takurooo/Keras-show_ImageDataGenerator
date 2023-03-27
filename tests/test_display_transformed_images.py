@@ -1,11 +1,13 @@
 import json
 
+import matplotlib.pyplot as plt
 import pytest
 from PIL import Image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from display_transformed_images import (
     create_image_data_generator,
+    display_images_in_grid,
     generate_transformed_images,
     load_json,
 )
@@ -91,3 +93,20 @@ def test_generate_transformed_images_invalid_num_imgs(tmp_test_image):
     invalid_num_imgs = 0
     with pytest.raises(ValueError, match=r"num_imgs must be a positive integer\."):
         generate_transformed_images(datagen, tmp_test_image, invalid_num_imgs)
+
+
+def test_display_images_in_grid_valid_args(mocker, tmp_test_image):
+    row, col = 2, 3
+    valid_img_num = row * col
+    imgs = [tmp_test_image] * valid_img_num
+    mocker.patch.object(plt, "show")
+    display_images_in_grid(imgs, row, col)
+    plt.show.assert_called_once()
+
+
+def test_display_images_in_grid_invalid_args():
+    row, col = 2, 3
+    invalid_img_num = row * col + 1
+    imgs = [tmp_test_image] * invalid_img_num
+    with pytest.raises(ValueError, match=r"Invalid imgs len:.* col:.* row:.*"):
+        display_images_in_grid(imgs, row, col)
