@@ -113,3 +113,33 @@ def test_display_images_in_grid_invalid_args():
     imgs = [tmp_test_image] * invalid_img_num
     with pytest.raises(ValueError, match=r"Invalid imgs len:.* col:.* row:.*"):
         display_images_in_grid(imgs, row, col)
+
+
+def test_main_valid_args(mocker):
+    mocked_json_data = {"rescale": 0}
+    load_json_mock = mocker.patch(
+        "display_transformed_images.load_json", return_value=mocked_json_data
+    )
+    create_image_data_generator_mock = mocker.patch(
+        "display_transformed_images.create_image_data_generator"
+    )
+    generate_transformed_images_mock = mocker.patch(
+        "display_transformed_images.generate_transformed_images"
+    )
+    display_images_in_grid_mock = mocker.patch(
+        "display_transformed_images.display_images_in_grid"
+    )
+
+    config_path = "test_config.json"
+    img_path = "test_image.jpg"
+    row, col = 4, 4
+    main(config_path, img_path, row, col)
+
+    load_json_mock.assert_called_once_with(config_path)
+    create_image_data_generator_mock.assert_called_once_with(mocked_json_data)
+    generate_transformed_images_mock.assert_called_once_with(
+        create_image_data_generator_mock.return_value, img_path, row * col
+    )
+    display_images_in_grid_mock.assert_called_once_with(
+        generate_transformed_images_mock.return_value, row, col
+    )
