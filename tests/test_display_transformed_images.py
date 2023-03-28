@@ -10,6 +10,7 @@ from display_transformed_images import (
     display_images_in_grid,
     generate_transformed_images,
     load_json,
+    main,
 )
 
 
@@ -99,8 +100,10 @@ def test_display_images_in_grid_valid_args(mocker, tmp_test_image):
     row, col = 2, 3
     valid_img_num = row * col
     imgs = [tmp_test_image] * valid_img_num
+    mocker.patch.object(plt, "imshow")
     mocker.patch.object(plt, "show")
     display_images_in_grid(imgs, row, col)
+    plt.show.imshow()
     plt.show.assert_called_once()
 
 
